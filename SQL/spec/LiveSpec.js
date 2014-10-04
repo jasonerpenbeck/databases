@@ -41,7 +41,7 @@ describe("Persistent Node Chat Server", function() {
               /* Now if we look in the database, we should find the
                * posted message there. */
 
-              var queryString = "SELECT messages.msg_txt, messages.rm_id, users.user_id, users.user_name, rooms.room_id, rooms.room_name FROM messages INNER JOIN messages.user_id ON users.user_id INNER JOIN ON messages.rm_id = rooms.rm_id;";
+              var queryString = "SELECT * FROM messages;";
               var queryArgs = [];
               /* TODO: Change the above queryString & queryArgs to match your schema design
                * The exact query string and query args to use
@@ -50,8 +50,6 @@ describe("Persistent Node Chat Server", function() {
               dbConnection.query( queryString, queryArgs,
                 function(err, results) {
                   // Should have one result:
-                  console.log("queryArgs", queryArgs);
-                  console.log("results", results);
                   expect(results.length).to.equal(1);
                   expect(results[0].msg_txt).to.equal("In mercy's name, three days is all I need.");
                   /* TODO: You will need to change these tests if the
@@ -65,7 +63,7 @@ describe("Persistent Node Chat Server", function() {
 
   it("Should output all messages from the DB", function(done) {
     // Let's insert a message into the db
-    var queryString = "SELECT messages.msg_txt, rooms.room_name FROM messages, rooms WHERE rooms.rm_id=messages.rm_id;";
+    var queryString = "INSERT INTO messages(msg_txt, user_id, rm_name) VALUES('Men like you can never change!', 1, 'main');";
     var queryArgs = [];
     /* TODO - The exact query string and query args to use
      * here depend on the schema you design, so I'll leave
@@ -78,10 +76,10 @@ describe("Persistent Node Chat Server", function() {
          * the message we just inserted: */
         request("http://127.0.0.1:3000/classes/messages",
           function(error, response, body) {
-            console.log(body);
             var messageLog = JSON.parse(body);
+            console.log('messageLOG', messageLog);
             expect(messageLog[0].msg_txt).to.equal("Men like you can never change!");
-            expect(messageLog[0].room_name).to.equal("main");
+            expect(messageLog[0].rm_name).to.equal("main");
             done();
           });
       });

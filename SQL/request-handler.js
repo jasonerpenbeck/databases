@@ -14,6 +14,8 @@ exports.postMessage = function(req, res) {
 
   var resultsCallback = function (results) {
 
+    console.log('Message',message);
+
       var chat = {
         message: message.message,
         userid: results[0].user_id,
@@ -29,7 +31,6 @@ exports.postMessage = function(req, res) {
       message = msg;
 
       findUser(msg.username, function (err, results) {
-          console.log('ogogogogogog',results);
         // no results/0 results
         if (!results || !results.length) {
           // create the user, then post the message
@@ -44,6 +45,7 @@ exports.postMessage = function(req, res) {
 
 exports.getMessages = function(req, res) {
   findMessages(function(err, messages) {
+      console.log('Messages',messages);
       serverHelpers.sendResponse(res, messages);
   });
 };

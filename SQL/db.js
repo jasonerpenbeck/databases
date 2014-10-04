@@ -23,12 +23,13 @@ exports.findAllMessages = function(cb){
   // var qLang = "SELECT messages.msg_txt, messages.rm_id, users.user_id, users.user_name, rooms.room_id, rooms.room_name FROM messages INNER JOIN messages.user_id ON users.user_id INNER JOIN ON messages.rm_id = rooms.rm_id;";
   // var getRoom = "SELECT rm_id from rooms where room_name=" +dbConnection.escape(roomname)+ ";";
   var qLang = "SELECT * FROM messages;";
-  console.log(qLang);
+  // console.log(qLang);
 
   dbConnection.query(qLang, function(err,messages) {
     if(err) {
       console.log(err);
     } else {
+      console.log("MESSAGES", messages);
       cb(err, messages);
     }
     dbConnection.end();
@@ -58,11 +59,8 @@ exports.saveUser = function(username, cb){
 };
 
 exports.saveMessage = function(message, userid, roomname, cb){
-  var getRmIDLang = "SELECT rm_id from rooms where room_name=" +dbConnection.escape(roomname)+ ";";
-  var getRmID = dbConnection.query(getRmIDLang);
-  console.log(getRmID);
 
-  var qLang = "INSERT INTO messages(user_id, msg_txt, rm_id) VALUES(" +dbConnection.escape(userid)+ "," +dbConnection.escape(message)+ "," +dbConnection.escape(getRmID)+ ");";
+  var qLang = "INSERT INTO messages(msg_txt, user_id, rm_name) VALUES(" +dbConnection.escape(message)+ "," +dbConnection.escape(userid)+ "," +dbConnection.escape(roomname)+ ");";
   dbConnection.query(qLang, function(err,message) {
     if(err) {
       console.log(err);
