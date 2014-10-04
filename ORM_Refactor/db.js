@@ -12,6 +12,7 @@ var Messages = sequelize.define('Message', {
 });
 
 Users.hasMany(Messages);
+Messages.belongsTo()
 
 Users.sync().success(function(){
     console.log("OG");
