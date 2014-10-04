@@ -13,9 +13,11 @@ exports.postMessage = function(req, res) {
   var message;
 
   var resultsCallback = function (results) {
+
+
       var chat = {
         message: message.message,
-        userid: results[0].id,
+        userid: results[0].user_id,
         roomname: message.roomname
       };
 
@@ -26,7 +28,9 @@ exports.postMessage = function(req, res) {
 
   parseData(req, function(_, msg) {
       message = msg;
+
       findUser(msg.username, function (err, results) {
+          console.log('ogogogogogog',results);
         // no results/0 results
         if (!results || !results.length) {
           // create the user, then post the message
