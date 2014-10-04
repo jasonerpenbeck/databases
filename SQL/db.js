@@ -7,9 +7,10 @@ var mysql = require('mysql');
  * database: "chat" specifies that we're using the database called
  * "chat", which we created by running schema.sql.*/
 var dbConnection = mysql.createConnection({
-  user: "",
+  user: "root",
   password: "",
-  database: "chat"
+  database: "chat",
+  host: 'localhost'
 });
 
 dbConnection.connect();
@@ -22,13 +23,18 @@ dbConnection.connect();
 
 
 exports.findAllMessages = function(cb){
+  // write queries
+  var qLang = "SELECT * FROM messages";
 };
 
 exports.findUser = function(username, cb){
+  var qLang =  "SELECT user_name FROM users WHERE user_name =" + username;
 };
 
 exports.saveUser = function(username, cb){
+  var qLang = "INSERT INTO users(user_name) VALUES " + username;
 };
 
 exports.saveMessage = function(message, userid, roomname, cb){
+  var qLang = "INSERT INTO messages(user_id, msg_txt, rm_id) VALUES " + username;
 };
