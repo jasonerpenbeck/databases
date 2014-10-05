@@ -41,7 +41,7 @@ describe("Persistent Node Chat Server", function() {
               /* Now if we look in the database, we should find the
                * posted message there. */
 
-              var queryString = "SELECT * FROM messages;";
+              var queryString = "SELECT * FROM Messages;";
               var queryArgs = [];
               /* TODO: Change the above queryString & queryArgs to match your schema design
                * The exact query string and query args to use
@@ -63,7 +63,7 @@ describe("Persistent Node Chat Server", function() {
 
   it("Should output all messages from the DB", function(done) {
     // Let's insert a message into the db
-    var queryString = "INSERT INTO messages(msg_txt, user_id, rm_name) VALUES('Men like you can never change!', 1, 'main');";
+    var queryString = "INSERT INTO messages(msg_txt, rm_name, createdAt, updatedAt) VALUES('Men like you can never change!', 'main', NOW(), NOW());";
     var queryArgs = [];
     /* TODO - The exact query string and query args to use
      * here depend on the schema you design, so I'll leave

@@ -4,22 +4,22 @@ var sequelize = new Sequelize("chatter", "root", "");
 
 sequelize.authenticate();
 
-var Users = sequelize.define('User', {
+var Users = sequelize.define('Users', {
   username: { type:Sequelize.STRING, allowNull: false }
 });
 
-var Messages = sequelize.define('Message', {
+var Messages = sequelize.define('Messages', {
   msg_txt: Sequelize.STRING,
   rm_name: Sequelize.STRING
 });
 
 Users.sync().success(function(){
-  var newUsers = Users.build({ username: "Urvashi"});
+  var newUsers = Users.build({ username: "uReddy"});
   newUsers.save().success(function(){
     /* This callback function is called once saving succeeds. */
 
     // Retrieve objects from the database:
-    Users.findAll({ where: {username: "Urvashi"} }).success(function(usrs) {
+    Users.findAll({ where: {username: "uReddy"} }).success(function(usrs) {
       // This function is called back with an array of matches.
       for (var i = 0; i < usrs.length; i++) {
         console.log(usrs[i].username + " exists");
@@ -30,10 +30,10 @@ Users.sync().success(function(){
 
 Messages.sync().success(function(){
   console.log("Make a mess(age)");
-  var newMessages = Messages.build({msg_txt:'Saturday OG TIME!', rm_name:'OG_Central' });
+  var newMessages = Messages.build({msg_txt:'Saturday 4:45pm OG TIME!', rm_name:'OG_Central' });
   newMessages.save().success(function(){
-   console.log('OG Central is here. Yeah.');
-   Messages.findAll({ where: {rm_name: "OG_Central"} }).success(function(msgs) {
+   console.log('OG Central is still here. Yeah.');
+   Messages.findAll({ where: {rm_name: "OG_Headquarters"} }).success(function(msgs) {
       // This function is called back with an array of matches.
       for (var i = 0; i < msgs.length; i++) {
         console.log(msgs[i].rm_name + " exists");
